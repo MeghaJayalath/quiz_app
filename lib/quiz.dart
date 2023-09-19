@@ -12,16 +12,22 @@ class Qiuz extends StatefulWidget {
 }
 
 class _QiuzState extends State<Qiuz> {
-  Widget activeScreen = const StartScreen();
+  var activeScreen = 'start-screen';
 
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionScreen();
+      activeScreen = 'question-screen';
     });
   }
 
   @override
   Widget build(context) {
+    Widget screenWidget = StartScreen(switchScreen);
+
+    if (activeScreen == 'question-screen') {
+      screenWidget = const QuestionScreen();
+    }
+
     return MaterialApp(
       home: Scaffold(
         body: Container(
@@ -58,7 +64,7 @@ class _QiuzState extends State<Qiuz> {
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: activeScreen,
+              child: screenWidget,
             ),
           ),
         ),
